@@ -64,4 +64,4 @@ jobs:
         with:
           app-name: 'track-ranker-backend'
           slot-name: 'Production'
-          package: '*.jar'
+          package: 'track-ranker-*.jar'
