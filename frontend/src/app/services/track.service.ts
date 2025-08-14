@@ -8,7 +8,11 @@ import { TrackImageService } from './track-image.service';
   providedIn: 'root'
 })
 export class TrackService {
-  private apiUrl = 'http://localhost:8080/api/tracks';
+  // Local development
+  // private apiUrl = 'http://localhost:8080/api/tracks';
+  
+  // Production
+  private apiUrl = 'https://track-ranker-backend-gtgdg6dxawhzgra9.centralus-01.azurewebsites.net/api/tracks';
 
   constructor(
     private http: HttpClient,

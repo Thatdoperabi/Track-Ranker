@@ -12,7 +12,11 @@ export interface ContactRequest {
   providedIn: 'root'
 })
 export class ContactService {
-  private apiUrl = 'http://localhost:8080/api/contact'; // Add /api prefix
+  // Local development
+  // private apiUrl = 'http://localhost:8080/api/contact';
+  
+  // Production
+  private apiUrl = 'https://track-ranker-backend-gtgdg6dxawhzgra9.centralus-01.azurewebsites.net/api/contact';
 
   constructor(private http: HttpClient) {}
 
