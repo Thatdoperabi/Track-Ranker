@@ -1,0 +1,32 @@
+# Dependencies
+node_modules/
+.gradle/
+build/
+target/
+
+# Environment files
+.env
+application-local.properties
+
+# IDE files
+.vscode/
+.idea/
+*.iml
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+logs/
+
+# Angular
+dist/
+.angular/
+
+# Spring Boot
+target/
+
+# SendGrid API Key (we'll use environment variables)
+# Don't commit your actual API key!

@@ -1,0 +1,56 @@
+<div class="modal-overlay">
+  <div class="modal-content" (click)="$event.stopPropagation()">
+    <div class="modal-header">
+      <h2>Contact Us</h2>
+      <button class="close-btn" (click)="onClose()">&times;</button>
+    </div>
+    
+    <div class="modal-body">
+      <form (ngSubmit)="onSubmit()" #myForm="ngForm">
+        <div class="form-group">
+          <label for="email">Your Email Address *</label>
+          <input 
+            type="email" 
+            id="email" 
+            name="email" 
+            [(ngModel)]="contactForm.email" 
+            required 
+            class="form-control"
+            placeholder="your.email@example.com">
+        </div>
+        
+        <div class="form-group">
+          <label for="subject">Subject *</label>
+          <select 
+            id="subject" 
+            name="subject" 
+            [(ngModel)]="contactForm.subject" 
+            required 
+            class="form-control">
+            <option *ngFor="let option of subjectOptions" [value]="option.value">
+              {{ option.label }}
+            </option>
+          </select>
+        </div>
+        
+        <div class="form-group">
+          <label for="message">Message *</label>
+          <textarea 
+            id="message" 
+            name="message" 
+            [(ngModel)]="contactForm.message" 
+            required 
+            rows="6" 
+            class="form-control"
+            placeholder="Please provide details about the track you'd like to suggest, or describe the issue you're reporting..."></textarea>
+        </div>
+        
+        <div class="form-actions">
+          <button type="submit" class="btn-primary" [disabled]="submitting || !myForm.form.valid">
+            {{ submitting ? 'Sending...' : 'Send Message' }}
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

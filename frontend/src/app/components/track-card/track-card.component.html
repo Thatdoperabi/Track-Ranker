@@ -1,0 +1,38 @@
+<div class="track-card" (click)="onTrackClick()">
+  <div class="track-image-container">
+    <img 
+      [src]="getDisplayImage()" 
+      [alt]="getTrackName()"
+      class="track-image"
+      (error)="onImageError($event)"
+    >
+  </div>
+  
+  <div class="track-content">
+    <h3 class="track-name">{{ getTrackName() }}</h3>
+    <p class="track-location">{{ getTrackLocation() }}</p>
+    
+    <div class="track-stats">
+      <div 
+        class="difficulty-badge"
+        [style.background-color]="getDifficultyColor(getDisplayRating())"
+      >
+        {{ getDifficultyText(getDisplayRating()) }} ({{ getDisplayRating() }}/10)
+      </div>
+      <span class="reviews-count">
+        {{ getNumberOfReviews() }} reviews
+      </span>
+    </div>
+    
+    <div class="track-details">
+      <div class="detail-item" *ngIf="getTrackLength()">
+        <span class="detail-value">{{ getTrackLength() }}</span>
+        <span class="detail-label">miles</span>
+      </div>
+      <div class="detail-item" *ngIf="getNumberOfTurns()">
+        <span class="detail-value">{{ getNumberOfTurns() }}</span>
+        <span class="detail-label">turns</span>
+      </div>
+    </div>
+  </div>
+</div> 

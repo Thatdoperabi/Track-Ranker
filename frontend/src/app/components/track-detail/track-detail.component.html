@@ -1,0 +1,176 @@
+<div *ngIf="loading" class="loading">
+  <div class="spinner"></div>
+  Loading track details...
+</div>
+<div *ngIf="error" class="error">
+  {{ error }}
+  <button (click)="goBack()" class="back-btn">Back</button>
+</div>
+<div *ngIf="!loading && !error && track" class="track-detail-container">
+  <div class="header">
+    <button (click)="goBack()" class="back-btn">← Back</button>
+    <h1>{{ track.name }}</h1>
+    <span class="location">{{ track.city }}, {{ track.state }}</span>
+  </div>
+  
+  <div class="track-hero">
+    <div class="track-image-container">
+      <img [src]="track.trackLayoutImageUrl" [alt]="track.name" class="track-image">
+    </div>
+    
+    <div class="track-summary">
+      <div class="difficulty-section">
+        <h3>Difficulty</h3>
+        <div class="difficulty-display">
+          <div class="difficulty-badge large" [style.background-color]="getDifficultyColor(getAverageDifficulty())">
+            {{ getDifficultyText(getAverageDifficulty()) }} ({{ getAverageDifficulty() }}/10)
+          </div>
+          <div class="ai-explanation">Average difficulty rating from {{ reviews.length }} review{{ reviews.length !== 1 ? 's' : '' }}</div>
+        </div>
+      </div>
+      
+      <div class="quick-stats">
+        <div class="stat-item">
+          <span class="stat-label">Length:</span>
+          <span class="stat-value">{{ track.trackLength }} mi</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-label">Turns:</span>
+          <span class="stat-value">{{ track.numberOfTurns }}</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-label">Surface:</span>
+          <span class="stat-value">{{ track.surfaceType }}</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-label">Built:</span>
+          <span class="stat-value">{{ track.yearBuilt }}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <div class="track-info-tabs">
+    <div class="tab-section">
+      <h3>Track Details</h3>
+      <div class="info-grid">
+        <div class="info-item">
+          <span class="info-label">Track Width:</span>
+          <span class="info-value">{{ track.trackWidth }} ft</span>
+        </div>
+        <div class="info-item">
+          <span class="info-label">Elevation Change:</span>
+          <span class="info-value">{{ track.maxElevationChange }} ft</span>
+        </div>
+        <div class="info-item">
+          <span class="info-label">Direction:</span>
+          <span class="info-value">{{ track.trackDirection }}</span>
+        </div>
+      </div>
+    </div>
+    
+    <div class="tab-section">
+      <h3>Contact Information</h3>
+      <div class="contact-info">
+        <div class="info-item">
+          <span class="contact-label">Website:</span>
+          <a [href]="track.websiteUrl" target="_blank" class="contact-link">{{ track.websiteUrl }}</a>
+        </div>
+        <div class="info-item">
+          <span class="contact-label">Phone:</span>
+          <span class="info-value">{{ track.phoneNumber }}</span>
+        </div>
+        <div class="info-item">
+          <span class="contact-label">Email:</span>
+          <span class="info-value">{{ track.emailAddress }}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Reviews Section -->
+  <div class="reviews-section">
+    <div class="reviews-header">
+      <h3>Reviews & Ratings</h3>
+      <button (click)="toggleReviewForm()" class="add-review-btn">
+        {{ showReviewForm ? 'Cancel' : 'Add Review' }}
+      </button>
+    </div>
+
+    <!-- Review Form -->
+    <div *ngIf="showReviewForm" class="review-form">
+      <h4>Write Your Review</h4>
+      <form (ngSubmit)="submitReview()">
+        <div class="form-group">
+          <label for="userName">Your Name *</label>
+          <input 
+            type="text" 
+            id="userName" 
+            name="userName"
+            [(ngModel)]="reviewForm.userName" 
+            required
+            class="form-control">
+        </div>
+
+        <div class="form-group">
+          <label for="userDifficultyRating">Difficulty Rating *</label>
+          <select 
+            id="userDifficultyRating" 
+            name="userDifficultyRating"
+            [(ngModel)]="reviewForm.userDifficultyRating" 
+            required
+            class="form-control">
+            <option value="1">1 - Very Easy</option>
+            <option value="2">2 - Easy</option>
+            <option value="3">3 - Easy</option>
+            <option value="4">4 - Moderate</option>
+            <option value="5" selected>5 - Moderate</option>
+            <option value="6">6 - Moderate</option>
+            <option value="7">7 - Difficult</option>
+            <option value="8">8 - Difficult</option>
+            <option value="9">9 - Very Difficult</option>
+            <option value="10">10 - Extreme</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="userReviewText">Your Review *</label>
+          <textarea 
+            id="userReviewText" 
+            name="userReviewText"
+            [(ngModel)]="reviewForm.userReviewText" 
+            required
+            rows="4"
+            placeholder="Share your experience riding this track..."
+            class="form-control"></textarea>
+        </div>
+
+        <div class="form-actions">
+          <button type="submit" class="submit-btn" [disabled]="submittingReview">
+            {{ submittingReview ? 'Submitting...' : 'Submit Review' }}
+          </button>
+        </div>
+      </form>
+    </div>
+
+    <!-- Reviews List -->
+    <div class="reviews-list">
+      <div *ngFor="let review of reviews" class="review-item">
+        <div class="review-header">
+          <div class="reviewer-info">
+            <span class="reviewer-name">{{ review.userName }}</span>
+            <span class="review-date">{{ review.reviewDate | date:'mediumDate' }}</span>
+          </div>
+          <div class="review-rating">
+            <div class="difficulty-badge small" [style.background-color]="getDifficultyColor(review.userDifficultyRating)">
+              {{ review.userDifficultyRating }}/10
+            </div>
+          </div>
+        </div>
+        <div class="review-text">
+          {{ review.userReviewText }}
+        </div>
+      </div>
+    </div>
+  </div>
+</div> 
