@@ -30,3 +30,5 @@ target/
 
 # SendGrid API Key (we'll use environment variables)
 # Don't commit your actual API key!
+# Environment variables
+application-local.properties
