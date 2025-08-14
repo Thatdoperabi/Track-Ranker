@@ -9,7 +9,10 @@ class CorsConfig : WebMvcConfigurer {
     
     override fun addCorsMappings(registry: CorsRegistry) {
         registry.addMapping("/**")
-            .allowedOrigins("http://localhost:4200")
+            .allowedOrigins(
+                "http://localhost:4200",
+                "https://kind-dune-07256f510.1.azurestaticapps.net"
+            )
             .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
             .allowedHeaders("*")
             .allowCredentials(true)
