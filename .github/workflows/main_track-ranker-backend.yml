@@ -31,8 +31,6 @@ jobs:
           ./gradlew build
           echo "=== Checking what JAR files were created ==="
           ls -la build/libs/ || echo "No libs directory found"
-          echo "=== Full directory listing ==="
-          find . -name "*.jar" -type f
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v4
@@ -53,11 +51,6 @@ jobs:
         with:
           name: java-app
       
-      - name: List downloaded artifacts
-        run: |
-          echo "=== Downloaded artifacts ==="
-          ls -la *.jar || echo "No JAR files found"
-      
       - name: Login to Azure
         uses: azure/login@v2
         with:
@@ -71,4 +64,4 @@ jobs:
         with:
           app-name: 'track-ranker-backend'
           slot-name: 'Production'
-          package: '*.jar'
+          package: 'backend-0.0.1-SNAPSHOT.jar'
