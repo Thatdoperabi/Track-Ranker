@@ -27,6 +27,7 @@ jobs:
       - name: Build with Gradle
         run: |
           cd backend
+          chmod +x ./gradlew
           ./gradlew build
 
       - name: Upload artifact for deployment job
