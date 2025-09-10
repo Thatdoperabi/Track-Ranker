@@ -15,7 +15,7 @@ export class ContactService {
   // Local development
   // private apiUrl = 'http://localhost:8080/api/contact';
   
-  // Production
+  // Production time
   private apiUrl = 'https://track-ranker-backend-gtgdg6dxawhzgra9.centralus-01.azurewebsites.net/api/contact';
 
   constructor(private http: HttpClient) {}

@@ -11,23 +11,24 @@
 
 .header h1 {
   font-size: 2.5rem;
-  color: #2c3e50;
+  color: #e0e0e0;
   margin-bottom: 10px;
 }
 
 .header p {
   font-size: 1.1rem;
-  color: #7f8c8d;
+  color: #b0b0b0;
 }
 
 .loading {
   text-align: center;
   padding: 60px 20px;
+  color: #e0e0e0;
 }
 
 .spinner {
-  border: 4px solid #f3f3f3;
-  border-top: 4px solid #3498db;
+  border: 4px solid #3a3a3a;
+  border-top: 4px solid #4a9eff;
   border-radius: 50%;
   width: 40px;
   height: 40px;
@@ -43,10 +44,11 @@
 .error {
   text-align: center;
   padding: 40px 20px;
-  background: #fee;
-  border: 1px solid #fcc;
+  background: #2d2d2d;
+  border: 1px solid #404040;
   border-radius: 8px;
   margin: 20px 0;
+  color: #e0e0e0;
 }
 
 .retry-btn {
@@ -64,11 +66,11 @@
 }
 
 .filters-section {
-  background: #f8f9fa;
+  background: #2d2d2d;
   padding: 20px;
   border-radius: 8px;
   margin-bottom: 30px;
-  border: 1px solid #e9ecef;
+  border: 1px solid #404040;
 }
 
 .filters-grid {
@@ -86,24 +88,30 @@
 .filter-group label {
   font-weight: 600;
   margin-bottom: 8px;
-  color: #2c3e50;
+  color: #e0e0e0;
 }
 
 .search-input,
 .select-input,
 .range-input {
   padding: 10px;
-  border: 1px solid #ddd;
+  border: 1px solid #404040;
   border-radius: 4px;
   font-size: 14px;
+  background-color: #3a3a3a;
+  color: #e0e0e0;
+}
+
+.search-input::placeholder {
+  color: #888;
 }
 
 .search-input:focus,
 .select-input:focus,
 .range-input:focus {
   outline: none;
-  border-color: #3498db;
-  box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.2);
+  border-color: #4a9eff;
+  box-shadow: 0 0 0 2px rgba(74, 158, 255, 0.2);
 }
 
 .range-inputs {
@@ -113,7 +121,7 @@
 }
 
 .range-inputs span {
-  color: #7f8c8d;
+  color: #b0b0b0;
 }
 
 .range-input {
@@ -126,7 +134,7 @@
 }
 
 .sort-btn {
-  background: #3498db;
+  background: #4a9eff;
   color: white;
   border: none;
   padding: 10px 15px;
@@ -136,11 +144,11 @@
 }
 
 .sort-btn:hover {
-  background: #2980b9;
+  background: #3a8eef;
 }
 
 .clear-filters-btn {
-  background: #95a5a6;
+  background: #6c757d;
   color: white;
   border: none;
   padding: 10px 20px;
@@ -150,12 +158,12 @@
 }
 
 .clear-filters-btn:hover {
-  background: #7f8c8d;
+  background: #5a6268;
 }
 
 .results-info {
   margin-bottom: 20px;
-  color: #7f8c8d;
+  color: #b0b0b0;
   font-size: 14px;
 }
 
@@ -169,7 +177,7 @@
 .no-results {
   text-align: center;
   padding: 60px 20px;
-  color: #7f8c8d;
+  color: #b0b0b0;
 }
 
 .no-results p {
@@ -189,38 +197,9 @@
   .header h1 {
     font-size: 2rem;
   }
-} 
-
-/* Add these styles */
-.header-actions {
-  display: flex;
-  justify-content: flex-end;
-  margin-bottom: 20px;
 }
 
-.contact-btn {
-  background-color: #007bff;
-  color: #fff;
-  border: none;
-  padding: 10px 16px;
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 14px;
-  font-weight: 500;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  transition: background-color 0.2s;
-}
-
-.contact-btn:hover {
-  background-color: #0056b3;
-}
-
-.contact-btn span {
-  font-size: 16px;
-} 
-
+/* Contact button styles */
 .header-content {
   display: flex;
   justify-content: space-between;
@@ -240,7 +219,7 @@
 }
 
 .contact-btn {
-  background-color: #007bff;
+  background-color: #4a9eff;
   color: #fff;
   border: none;
   padding: 10px 16px;
@@ -256,12 +235,12 @@
 }
 
 .contact-btn:hover {
-  background-color: #0056b3;
+  background-color: #3a8eef;
 }
 
 .contact-btn span {
   font-size: 16px;
-} 
+}
 
 /* Update the header styles to restore centering */
 .header {
@@ -271,13 +250,13 @@
 
 .header h1 {
   font-size: 2.5rem;
-  color: #2c3e50;
+  color: #e0e0e0;
   margin-bottom: 10px;
 }
 
 .header p {
   font-size: 1.1rem;
-  color: #7f8c8d;
+  color: #b0b0b0;
 }
 
 /* Add styles for the contact button section */
@@ -286,30 +265,6 @@
   justify-content: flex-end;
   margin-bottom: 20px;
 }
-
-.contact-btn {
-  background-color: #007bff;
-  color: #fff;
-  border: none;
-  padding: 10px 16px;
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 14px;
-  font-weight: 500;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  transition: background-color 0.2s;
-  white-space: nowrap;
-}
-
-.contact-btn:hover {
-  background-color: #0056b3;
-}
-
-.contact-btn span {
-  font-size: 16px;
-} 
 
 .snackbar {
   position: fixed;
