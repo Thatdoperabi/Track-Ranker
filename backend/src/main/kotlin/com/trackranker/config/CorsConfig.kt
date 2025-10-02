@@ -11,7 +11,9 @@ class CorsConfig : WebMvcConfigurer {
         registry.addMapping("/**")
             .allowedOrigins(
                 "http://localhost:4200",
-                "https://kind-dune-07256f510.1.azurestaticapps.net"
+                "https://kind-dune-07256f510.1.azurestaticapps.net",
+                "https://track-ranker.com",
+                "https://www.track-ranker.com"
             )
             .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
             .allowedHeaders("*")
