@@ -21,9 +21,17 @@ class TrackController(
         val tracks = trackRepository.findAll()
         logger.info("Found ${tracks.size} tracks in database")
         
+        // OPTIMIZED: Get all reviews for all tracks in one query instead of N+1 queries
+        val trackIds = tracks.mapNotNull { it.id }
+        val allReviews = trackReviewService.getAllReviewsForTracks(trackIds)
+        
+        // Group reviews by track ID for efficient lookup
+        val reviewsByTrackId = allReviews.groupBy { it.trackId }
+        
         // Calculate correct review counts for each track
         val tracksWithCorrectCounts = tracks.map { track ->
-            val userReviewCount = trackReviewService.getReviewsByTrackId(track.id!!).size
+            val trackReviews = reviewsByTrackId[track.id] ?: emptyList()
+            val userReviewCount = trackReviews.size
             val totalReviewCount = if (track.aiDifficultyRating != null) {
                 userReviewCount + 1 // Add 1 for AI review
             } else {
@@ -32,7 +40,7 @@ class TrackController(
             
             track.copy(
                 numberOfReviews = totalReviewCount,
-                averageUserRating = calculateAverageRating(track, userReviewCount)
+                averageUserRating = calculateAverageRating(track, trackReviews)
             )
         }
         
@@ -58,7 +66,7 @@ class TrackController(
         
         return track.copy(
             numberOfReviews = totalReviewCount,
-            averageUserRating = calculateAverageRating(track, userReviewCount)
+            averageUserRating = calculateAverageRating(track, trackReviewService.getReviewsByTrackId(id))
         )
     }
 
@@ -67,9 +75,15 @@ class TrackController(
         logger.info("Getting tracks for state: $state")
         val tracks = trackRepository.findByState(state)
         
+        // OPTIMIZED: Get all reviews for all tracks in one query
+        val trackIds = tracks.mapNotNull { it.id }
+        val allReviews = trackReviewService.getAllReviewsForTracks(trackIds)
+        val reviewsByTrackId = allReviews.groupBy { it.trackId }
+        
         // Calculate correct review counts for each track
         return tracks.map { track ->
-            val userReviewCount = trackReviewService.getReviewsByTrackId(track.id!!).size
+            val trackReviews = reviewsByTrackId[track.id] ?: emptyList()
+            val userReviewCount = trackReviews.size
             val totalReviewCount = if (track.aiDifficultyRating != null) {
                 userReviewCount + 1 // Add 1 for AI review
             } else {
@@ -78,7 +92,7 @@ class TrackController(
             
             track.copy(
                 numberOfReviews = totalReviewCount,
-                averageUserRating = calculateAverageRating(track, userReviewCount)
+                averageUserRating = calculateAverageRating(track, trackReviews)
             )
         }
     }
@@ -91,11 +105,10 @@ class TrackController(
         return "Controller is working! Found $count tracks in database."
     }
     
-    private fun calculateAverageRating(track: Track, userReviewCount: Int): Float {
-        val userReviews = trackReviewService.getReviewsByTrackId(track.id!!)
+    private fun calculateAverageRating(track: Track, userReviews: List<com.trackranker.model.TrackReview>): Float {
         val aiRating = track.aiDifficultyRating?.toDouble() ?: 0.0
         
-        if (userReviewCount == 0) {
+        if (userReviews.isEmpty()) {
             return aiRating.toFloat()
         }
         

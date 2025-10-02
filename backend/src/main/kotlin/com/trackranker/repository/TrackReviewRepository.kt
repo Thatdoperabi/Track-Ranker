@@ -16,4 +16,8 @@ interface TrackReviewRepository : JpaRepository<TrackReview, Long> {
     
     @Query("SELECT COUNT(r) FROM TrackReview r WHERE r.trackId = :trackId")
     fun getReviewCountByTrackId(@Param("trackId") trackId: Long): Long
+    
+    // NEW: Optimized method to get all reviews for multiple tracks in one query
+    @Query("SELECT r FROM TrackReview r WHERE r.trackId IN :trackIds ORDER BY r.trackId, r.reviewDate DESC")
+    fun findAllByTrackIdIn(@Param("trackIds") trackIds: List<Long>): List<TrackReview>
 }

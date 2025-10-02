@@ -18,6 +18,11 @@ class TrackReviewService(
         return trackReviewRepository.findByTrackIdOrderByReviewDateDesc(trackId)
     }
     
+    // NEW: Optimized method to get all reviews for multiple tracks in one query
+    fun getAllReviewsForTracks(trackIds: List<Long>): List<TrackReview> {
+        return trackReviewRepository.findAllByTrackIdIn(trackIds)
+    }
+    
     fun createReview(trackId: Long, review: TrackReview): TrackReview? {
         // Verify track exists
         if (!trackRepository.existsById(trackId)) {
