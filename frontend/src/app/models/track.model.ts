@@ -45,6 +45,7 @@ export interface TrackReview {
   userReviewText: string;
   reviewDate: Date;
   userName?: string;
+  bikeModel?: string;
 }
 
 export interface TrackSuggestion {

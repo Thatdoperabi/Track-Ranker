@@ -36,6 +36,7 @@ class TrackReviewService(
             userDifficultyRating = review.userDifficultyRating,
             userReviewText = review.userReviewText,
             userName = review.userName,
+            bikeModel = review.bikeModel, // Add this line!
             reviewDate = LocalDateTime.now()
         )
         
@@ -53,7 +54,8 @@ class TrackReviewService(
         val updatedReview = existingReview.copy(
             userDifficultyRating = review.userDifficultyRating,
             userReviewText = review.userReviewText,
-            userName = review.userName
+            userName = review.userName,
+            bikeModel = review.bikeModel // Add this line!
         )
         
         val savedReview = trackReviewRepository.save(updatedReview)

@@ -113,6 +113,18 @@
         </div>
 
         <div class="form-group">
+          <label for="bikeModel">Bike Model *</label>
+          <input 
+            type="text" 
+            id="bikeModel" 
+            name="bikeModel"
+            [(ngModel)]="reviewForm.bikeModel"
+            class="form-control"
+            placeholder="e.g., R1, GSX-R1000, Ninja ZX-10R"
+            required>
+        </div>
+
+        <div class="form-group">
           <label for="userDifficultyRating">Difficulty Rating *</label>
           <select 
             id="userDifficultyRating" 
@@ -158,7 +170,10 @@
       <div *ngFor="let review of reviews" class="review-item">
         <div class="review-header">
           <div class="reviewer-info">
-            <span class="reviewer-name">{{ review.userName }}</span>
+            <span class="reviewer-name">
+              {{ review.userName }}
+              <span *ngIf="review.bikeModel && review.userName !== 'AI Assessment'"> - {{ review.bikeModel }}</span>
+            </span>
             <span class="review-date">{{ review.reviewDate | date:'mediumDate' }}</span>
           </div>
           <div class="review-rating">

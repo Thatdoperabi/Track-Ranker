@@ -26,6 +26,9 @@ data class TrackReview(
     @Column(name = "user_name")
     val userName: String? = null,
     
+    @Column(name = "bike_model")
+    val bikeModel: String? = null,
+    
     @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "track_id", insertable = false, updatable = false)

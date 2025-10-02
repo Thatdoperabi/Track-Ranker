@@ -24,6 +24,7 @@ export class TrackDetailComponent implements OnInit {
   // Review form properties
   reviewForm = {
     userName: '',
+    bikeModel: '',  // Add this
     userDifficultyRating: 5, // This is already 5, which is good
     userReviewText: ''
   };
@@ -68,6 +69,7 @@ export class TrackDetailComponent implements OnInit {
             id: 0,
             trackId: trackId,
             userName: 'AI Assessment',
+            bikeModel: '', // Add this - AI reviews don't have bike models
             userDifficultyRating: this.track.aiDifficultyRating,
             userReviewText: this.track.aiDifficultyExplanation || 'AI-generated difficulty assessment based on track characteristics.',
             reviewDate: new Date()
@@ -84,6 +86,7 @@ export class TrackDetailComponent implements OnInit {
             id: 0,
             trackId: trackId,
             userName: 'AI Assessment',
+            bikeModel: '', // Add this
             userDifficultyRating: this.track.aiDifficultyRating,
             userReviewText: this.track.aiDifficultyExplanation || 'AI-generated difficulty assessment based on track characteristics.',
             reviewDate: new Date()
@@ -98,7 +101,7 @@ export class TrackDetailComponent implements OnInit {
   }
 
   submitReview(): void {
-    if (!this.track || !this.reviewForm.userName.trim() || !this.reviewForm.userReviewText.trim()) {
+    if (!this.track || !this.reviewForm.userName.trim() || !this.reviewForm.userReviewText.trim() || !this.reviewForm.bikeModel.trim()) {
       return;
     }
 
@@ -108,6 +111,7 @@ export class TrackDetailComponent implements OnInit {
       id: 0, // Will be set by backend
       trackId: this.track.id!,
       userName: this.reviewForm.userName.trim(),
+      bikeModel: this.reviewForm.bikeModel.trim(), // Add this line
       userDifficultyRating: this.reviewForm.userDifficultyRating,
       userReviewText: this.reviewForm.userReviewText.trim(),
       reviewDate: new Date()
@@ -121,6 +125,7 @@ export class TrackDetailComponent implements OnInit {
         // Reset form
         this.reviewForm = {
           userName: '',
+          bikeModel: '', // Add this line
           userDifficultyRating: 5,
           userReviewText: ''
         };
